@@ -3,18 +3,17 @@ import { useState } from 'react';
 export default function Register() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState(' ');
 
 	const register = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		try {
-			await fetch('http://localhost:4000/register', {
-				method: 'POST',
-				body: JSON.stringify({ username, password }),
-				headers: { 'Content-Type': 'application/json' },
-			});
-		} catch (err) {
-			console.log(err);
-		}
+		const response = await fetch('http://localhost:4000/register', {
+			method: 'POST',
+			body: JSON.stringify({ username, password }),
+			headers: { 'Content-Type': 'application/json' },
+		});
+
+		response.status !== 200 ? setError('Registration Failed!') : {};
 	};
 
 	return (
@@ -39,6 +38,7 @@ export default function Register() {
 				<button className='bg-indigo-500 text-white rounded-xl px-4 py-2'>
 					Register
 				</button>
+				<p className='text-red-500'>{error}</p>
 			</form>
 		</main>
 	);
