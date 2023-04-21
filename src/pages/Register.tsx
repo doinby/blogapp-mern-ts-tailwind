@@ -3,7 +3,8 @@ import { useState } from 'react';
 export default function Register() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState(' ');
+	const [error, setError] = useState('placeholder');
+	const hasError = error !== 'placeholder' ? 'visible' : 'invisible';
 
 	const register = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
@@ -18,9 +19,7 @@ export default function Register() {
 
 	return (
 		<main className='container mx-auto'>
-			<form
-				onSubmit={register}
-				className='h-full flex flex-col gap-6 justify-center items-center'>
+			<form onSubmit={register} className='h-full grid gap-6 place-content-center'>
 				<input
 					type='text'
 					placeholder='username'
@@ -38,7 +37,7 @@ export default function Register() {
 				<button className='bg-indigo-500 text-white rounded-xl px-4 py-2'>
 					Register
 				</button>
-				<p className='text-red-500'>{error}</p>
+				<p className={`${hasError} text-red-500 text-center`}>{error}</p>
 			</form>
 		</main>
 	);
