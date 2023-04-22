@@ -14,12 +14,13 @@ export default function Register() {
 			headers: { 'Content-Type': 'application/json' },
 		});
 
-		response.status !== 200 ? setError('Registration Failed!') : {};
+		response.status !== 200 ? setError('Login Failed!') : {};
 	};
 
 	return (
-		<main className='container mx-auto'>
-			<form onSubmit={register} className='h-full grid gap-6 place-content-center'>
+		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
+			<h2 className='text-indigo-500 text-2xl'>Register</h2>
+			<form onSubmit={register} className='grid gap-6'>
 				<input
 					type='text'
 					placeholder='username'
