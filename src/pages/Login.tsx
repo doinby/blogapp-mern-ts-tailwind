@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -6,24 +7,31 @@ export default function Login() {
 	const [message, setMessage] = useState('placeholder');
 	const [msgColor, setMsgColor] = useState('');
 
+	const navigate = useNavigate();
+
 	const hasMsg = message !== 'placeholder' ? 'visible' : 'invisible';
 
-	const register = async (e: React.SyntheticEvent) => {
+	const login = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		const res = await fetch('http://localhost:4000/login', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },
+			credentials: 'include',
 		});
+
 		setMessage(res.statusText);
 
-		res.ok ? setMsgColor('text-green-500') : setMsgColor('text-red-500');
+		if (res.ok) {
+			// Redirect to Homepage
+			navigate('/');
+		} else setMsgColor('text-red-500');
 	};
 
 	return (
 		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
 			<h2 className='text-indigo-500 text-2xl'>Login</h2>
-			<form onSubmit={register} className='grid gap-6'>
+			<form onSubmit={login} className='grid gap-6'>
 				<input
 					type='text'
 					placeholder='username'
