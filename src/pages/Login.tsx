@@ -11,7 +11,7 @@ export default function Login() {
 
 	const hasMsg = message !== 'placeholder' ? 'visible' : 'invisible';
 
-	const login = async (e: React.SyntheticEvent) => {
+	async function login(e: React.SyntheticEvent) {
 		e.preventDefault();
 		const res = await fetch('http://localhost:4000/login', {
 			method: 'POST',
@@ -26,7 +26,7 @@ export default function Login() {
 			// Redirect to Homepage
 			navigate('/');
 		} else setMsgColor('text-red-500');
-	};
+	}
 
 	return (
 		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>

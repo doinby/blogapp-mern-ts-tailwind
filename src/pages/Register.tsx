@@ -6,7 +6,7 @@ export default function Register() {
 	const [error, setError] = useState('placeholder');
 	const hasError = error !== 'placeholder' ? 'visible' : 'invisible';
 
-	const register = async (e: React.SyntheticEvent) => {
+	async function register(e: React.SyntheticEvent) {
 		e.preventDefault();
 		const response = await fetch('http://localhost:4000/register', {
 			method: 'POST',
@@ -15,7 +15,7 @@ export default function Register() {
 		});
 
 		response.status !== 200 ? setError('Login Failed!') : {};
-	};
+	}
 
 	return (
 		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
