@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [message, setMessage] = useState('placeholder');
 	const [msgColor, setMsgColor] = useState('');
+
+	const { userData, setUserData } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -19,10 +22,12 @@ export default function Login() {
 			headers: { 'Content-Type': 'application/json' },
 			credentials: 'include',
 		});
+		const data = await res.json();
 
 		setMessage(res.statusText);
 
 		if (res.ok) {
+			setUserData(data);
 			// Redirect to Homepage
 			navigate('/');
 		} else setMsgColor('text-red-500');

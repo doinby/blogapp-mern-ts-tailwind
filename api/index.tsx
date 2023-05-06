@@ -58,10 +58,11 @@ app.post('/login', async (req, res) => {
 app.post('/welcome', async (req, res) => {
 	const { token: accessToken } = req.cookies;
 
-	jwt.verify(accessToken, secretToken, {}, (err, data) => {
-		if (err) throw err;
-		res.json(data);
-	});
+	if (accessToken)
+		jwt.verify(accessToken, secretToken, {}, (err, data) => {
+			if (err) throw err;
+			res.json(data);
+		});
 });
 
 app.post('/logout', async (req, res) => {
