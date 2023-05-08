@@ -69,4 +69,8 @@ app.post('/logout', async (req, res) => {
 	res.clearCookie('token').json('ok');
 });
 
+app.post('/create', async (req, res) => {
+	res.json('ok');
+});
+
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
