@@ -43,7 +43,7 @@ export default function Header() {
 		};
 
 		getCredential();
-	}, [userDataContext, SetUserDataContext]);
+	}, []);
 
 	return (
 		<header className='flex justify-between items-center'>
