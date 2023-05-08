@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { UserContextProvider } from './UserContext';
+import Create from './pages/Create';
 
 export default function App() {
 	return (
@@ -16,6 +17,9 @@ export default function App() {
 					</Route>
 					<Route path='/login' element={<IndexLayout />}>
 						<Route index element={<Login />} />
+					</Route>
+					<Route path='/create' element={<IndexLayout />}>
+						<Route index element={<Create />} />
 					</Route>
 					<Route path='/logout' element={<Navigate to='/' />} />
 					<Route path='/register' element={<IndexLayout />}>
