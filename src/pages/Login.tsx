@@ -8,7 +8,7 @@ export default function Login() {
 	const [message, setMessage] = useState('placeholder');
 	const [msgColor, setMsgColor] = useState('');
 
-	const { userData, setUserData } = useContext(UserContext);
+	const { setUserData } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -28,6 +28,7 @@ export default function Login() {
 
 		if (res.ok) {
 			setUserData(data);
+
 			// Redirect to Homepage
 			navigate('/');
 		} else setMsgColor('text-red-500');

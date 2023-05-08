@@ -1,20 +1,30 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('placeholder');
-	const hasError = error !== 'placeholder' ? 'visible' : 'invisible';
+	const [message, setMessage] = useState('placeholder');
+	const [msgColor, setMsgColor] = useState('');
+
+	const navigate = useNavigate();
+
+	const hasMsg = message !== 'placeholder' ? 'visible' : 'invisible';
 
 	async function register(e: React.SyntheticEvent) {
 		e.preventDefault();
-		const response = await fetch('http://localhost:4000/register', {
+		const res = await fetch('http://localhost:4000/register', {
 			method: 'POST',
 			body: JSON.stringify({ username, password }),
 			headers: { 'Content-Type': 'application/json' },
 		});
 
-		response.status !== 200 ? setError('Login Failed!') : {};
+		setMessage(res.statusText);
+
+		if (res.ok) {
+			// Redirect to Homepage
+			navigate('/');
+		} else setMsgColor('text-red-500');
 	}
 
 	return (
@@ -38,7 +48,7 @@ export default function Register() {
 				<button className='bg-indigo-500 text-white rounded-xl px-4 py-2'>
 					Register
 				</button>
-				<p className={`${hasError} text-red-500 text-center`}>{error}</p>
+				<p className={`${msgColor} ${hasMsg} text-center`}>{message}</p>
 			</form>
 		</main>
 	);
