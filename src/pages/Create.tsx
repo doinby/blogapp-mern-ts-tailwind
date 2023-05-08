@@ -30,7 +30,7 @@ export default function Create() {
 	const [title, setTitle] = useState<string>('');
 	const [desc, setDesc] = useState<string>('');
 	const [content, setContent] = useState<string>('');
-	const [file, setFile] = useState<FileList | null>(null);
+	const [file, setFile] = useState<File>();
 
 	async function handleSubmit(e: React.FormEvent<HTMLInputElement>) {
 		e.preventDefault();
@@ -72,7 +72,7 @@ export default function Create() {
 				<input
 					type='file'
 					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setFile(e.target.files)
+						setFile(e.target.files?.[0])
 					}
 				/>
 				<ReactQuill
