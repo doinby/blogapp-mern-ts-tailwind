@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 
 export default function Header() {
@@ -10,6 +10,8 @@ export default function Header() {
 	const { userData: userDataContext, setUserData: SetUserDataContext } =
 		userValue;
 
+	const navigate = useNavigate();
+
 	async function logout() {
 		const res = await fetch('http://localhost:4000/logout', {
 			method: 'POST',
@@ -19,10 +21,11 @@ export default function Header() {
 
 		if (data === 'ok') {
 			setIsLoggedIn(false);
-			// setUserData(null);
 			SetUserDataContext(null);
 		}
-		<Navigate to='/' replace={true} />;
+
+		// Refresh page after logout
+		navigate(0);
 	}
 
 	useEffect(() => {
@@ -35,9 +38,7 @@ export default function Header() {
 
 			if (res.ok) {
 				setIsLoggedIn(true);
-				// setUserData(data);
 				SetUserDataContext(data);
-				// console.log(isLoggedIn, userDataContext);
 			} else setIsLoggedIn(false);
 		};
 
@@ -50,7 +51,14 @@ export default function Header() {
 			<ul className='flex gap-6'>
 				<li>
 					{isLoggedIn && userDataContext ? (
-						<Link to='/profile'>Welcome, {userDataContext.username}</Link>
+						<ul className='flex gap-6'>
+							<li>
+								<Link to='/profile'>Welcome, {userDataContext.username}</Link>
+							</li>
+							<li>
+								<Link to='/create'>Create Post</Link>
+							</li>
+						</ul>
 					) : (
 						<Link to='/login'>Login</Link>
 					)}
