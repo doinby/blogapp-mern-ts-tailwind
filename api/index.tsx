@@ -5,15 +5,33 @@ import connectDB from './db';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
 
 // Models
-import { User } from './models/User';
+import User from './models/User';
+import Post from './models/Post';
 
+// Dotenv setup
 dotenv.config({ path: './api/.env' });
 
 const PORT = 4000;
+
+// JWT setup
 const saltRounds = 10;
 const secretToken = process.env.ACCESS_TOKEN_SECRET;
+
+// Multer setup
+const storage = multer.diskStorage({
+	// Save file to ./api/uploads folder
+	destination: function (req, file, cb) {
+		cb(null, 'api/uploads/');
+	},
+	// Save to db with OG file name and extension
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	},
+});
+const uploadMiddleware = multer({ storage: storage });
 
 const app = express();
 
@@ -69,8 +87,27 @@ app.post('/logout', async (req, res) => {
 	res.clearCookie('token').json('ok');
 });
 
-app.post('/create', async (req, res) => {
-	res.json('ok');
-});
+app.post(
+	'/create',
+	uploadMiddleware.single('coverImg'),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async (req, res): Promise<any> => {
+		const { title, desc, content } = req.body;
+		const coverImg = req.file?.path;
+
+		try {
+			const postInfo = await Post.create({
+				title,
+				desc,
+				content,
+				coverImg,
+			});
+
+			res.json(postInfo);
+		} catch (err) {
+			res.status(400).json(err.message);
+		}
+	}
+);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
