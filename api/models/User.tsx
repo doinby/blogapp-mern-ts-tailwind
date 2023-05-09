@@ -5,9 +5,10 @@ interface UserInterface {
 	password: string;
 }
 
-const userSchema = new Schema<UserInterface>({
+const UserSchema = new Schema<UserInterface>({
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 });
 
-export const User = model<UserInterface>('User', userSchema);
+const User = model<UserInterface>('User', UserSchema);
+export default User;
