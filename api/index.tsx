@@ -96,13 +96,9 @@ app.post('/logout', async (req, res) => {
 	res.clearCookie('token').json('ok');
 });
 
-app.post(
-	'/create',
-	uploadMiddleware.single('coverImg'),
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async (req, res): Promise<any> => {
-		const { title, desc, content } = req.body;
-		const coverImg = req.file?.path;
+app.post('/create', uploadMiddleware.single('coverImg'), async (req, res) => {
+	const { title, desc, content } = req.body;
+	const coverImg = req.file?.path;
 
 		try {
 			const postInfo = await Post.create({
@@ -112,11 +108,10 @@ app.post(
 				coverImg,
 			});
 
-			res.json(postInfo);
-		} catch (err) {
-			res.status(400).json(err.message);
-		}
+		res.json(postInfo);
+	} catch (err) {
+		res.status(400).json(err.message);
 	}
-);
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
