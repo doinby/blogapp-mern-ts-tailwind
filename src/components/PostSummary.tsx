@@ -6,16 +6,21 @@ interface PostProps {
 	date: string;
 }
 
-export default function Post({ imgUrl, title, desc, author, date }: PostProps) {
+export default function PostSummary({
+	imgUrl,
+	title,
+	desc,
+	author,
+	date,
+}: PostProps) {
 	return (
-		<article className='flex'>
+		<article className='flex gap-6'>
 			<img src={imgUrl} alt={`${title}'s thumbnail`} className='w-[350px]' />
-			<div>
+			<div className='flex flex-col gap-6'>
 				<h3>{title}</h3>
-				<div>
-					<p>{author}</p>
-					<p>{date}</p>
-				</div>
+				<p>
+					{author} <span>{date}</span>
+				</p>
 				<p>{desc}</p>
 			</div>
 		</article>

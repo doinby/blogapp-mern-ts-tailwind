@@ -41,6 +41,15 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/', async (req, res) => {
+	try {
+		const posts = await Post.find();
+		res.status(200).json({ success: true, data: posts });
+	} catch (err) {
+		res.status(400).json(err.message);
+	}
+});
+
 app.post('/register', async (req, res) => {
 	const { username, password: plainPass } = req.body;
 
