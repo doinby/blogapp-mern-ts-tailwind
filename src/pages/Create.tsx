@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 const modules = {
 	toolbar: [
@@ -34,6 +35,10 @@ export default function Create() {
 	const [message, setMessage] = useState('placeholder');
 	const [msgColor, setMsgColor] = useState('');
 
+	const hasMsg = message !== 'placeholder' ? 'visible' : 'invisible';
+
+	const navigate = useNavigate();
+
 	async function handleSubmit(e: React.FormEvent<HTMLInputElement>) {
 		e.preventDefault();
 		const data = new FormData();
@@ -48,8 +53,10 @@ export default function Create() {
 
 		setMessage(res.statusText);
 
-		// const json = await res.json();
-		// console.log('json:', json);
+		if (res.ok) {
+			// Redirect to Homepage
+			navigate('/');
+		} else setMsgColor('text-red-500');
 	}
 
 	return (
@@ -58,7 +65,7 @@ export default function Create() {
 			<form
 				className='flex flex-col gap-6'
 				onSubmit={handleSubmit}
-				enctype='multipart/form-data'>
+				encType='multipart/form-data'>
 				<input
 					type='title'
 					placeholder='Title...'
@@ -88,8 +95,8 @@ export default function Create() {
 					formats={formats}
 					value={content}
 					onChange={setContent}></ReactQuill>
-				{/* <p className={`${msgColor} ${hasMsg} text-center`}>{message}</p> */}
-				<p>{message}</p>
+				<p className={`${msgColor} ${hasMsg} text-center`}>{message}</p>
+				{/* <p>{message}</p> */}
 				<button
 					className='bg-indigo-500 text-white rounded-xl px-4 py-2'
 					type='submit'>

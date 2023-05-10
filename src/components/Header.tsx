@@ -7,7 +7,7 @@ export default function Header() {
 	// const [userData, setUserData] = useState<object | null>(null);
 
 	const userValue = useContext(UserContext);
-	const { userData: userDataContext, setUserData: SetUserDataContext } =
+	const { userData: userDataContext, setUserData: setUserDataContext } =
 		userValue;
 
 	const navigate = useNavigate();
@@ -19,9 +19,9 @@ export default function Header() {
 		});
 		const data = await res.json();
 
-		if (data === 'ok') {
+		if (data.ok) {
 			setIsLoggedIn(false);
-			SetUserDataContext(null);
+			setUserDataContext(null);
 		}
 
 		// Refresh page after logout
@@ -30,16 +30,19 @@ export default function Header() {
 
 	useEffect(() => {
 		const getCredential = async () => {
-			const res = await fetch('http://localhost:4000/welcome', {
-				method: 'POST',
-				credentials: 'include',
-			});
-			const data = await res.json();
+			try {
+				const res = await fetch('http://localhost:4000/welcome', {
+					method: 'POST',
+					credentials: 'include',
+				});
 
-			if (res.ok) {
+				const json = await res.json();
+
 				setIsLoggedIn(true);
-				SetUserDataContext(data);
-			} else setIsLoggedIn(false);
+				setUserDataContext(json.data);
+			} catch (err) {
+				setIsLoggedIn(false);
+			}
 		};
 
 		getCredential();

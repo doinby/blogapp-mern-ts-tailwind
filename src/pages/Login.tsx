@@ -29,8 +29,9 @@ export default function Login() {
 		if (res.ok) {
 			setUserData(data);
 
-			// Redirect to Homepage
+			// Redirect to Homepage and refresh
 			navigate('/');
+			navigate(0);
 		} else setMsgColor('text-red-500');
 	}
 
