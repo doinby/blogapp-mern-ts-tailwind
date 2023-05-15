@@ -2,13 +2,21 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 
+interface UserDataInterface {
+	iat: number;
+	id: string;
+	username: string;
+}
+
+interface UserContextInterface {
+	userData?: UserDataInterface | null;
+	setUserData: (data: UserDataInterface | null) => void;
+}
+
 export default function Header() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	// const [userData, setUserData] = useState<object | null>(null);
-
-	const userValue = useContext(UserContext);
-	const { userData: userDataContext, setUserData: setUserDataContext } =
-		userValue;
+	const { userData, setUserData }: UserContextInterface =
+		useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -21,7 +29,7 @@ export default function Header() {
 
 		if (data.ok) {
 			setIsLoggedIn(false);
-			setUserDataContext(null);
+			setUserData(null);
 		}
 
 		// Refresh page after logout
@@ -39,7 +47,7 @@ export default function Header() {
 				const json = await res.json();
 
 				setIsLoggedIn(true);
-				setUserDataContext(json.data);
+				setUserData(json.data);
 			} catch (err) {
 				setIsLoggedIn(false);
 			}
@@ -53,10 +61,12 @@ export default function Header() {
 			<h1>My Blog</h1>
 			<ul className='flex gap-6'>
 				<li>
-					{isLoggedIn && userDataContext ? (
+					{isLoggedIn && userData ? (
 						<ul className='flex gap-6'>
 							<li>
-								<Link to='/profile'>Welcome, {userDataContext.username}</Link>
+								<Link to='/profile'>
+									Welcome, {userData instanceof Object && userData.username}
+								</Link>
 							</li>
 							<li>
 								<Link to='/create'>Create Post</Link>

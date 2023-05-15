@@ -4,16 +4,25 @@ type ChildrenProps = {
 	children: React.ReactNode;
 };
 
-export const UserContext = createContext({});
+interface UserDataInterface {
+	iat: number;
+	id: string;
+	username: string;
+}
+
+interface UserContextInterface {
+	userData?: UserDataInterface | null;
+	setUserData: (data: UserDataInterface) => void;
+}
+
+export const UserContext = createContext<UserContextInterface | null>(null);
 
 export function UserContextProvider({ children }: ChildrenProps) {
-	const [userData, setUserData] = useState({});
-	const userValue = {
-		userData,
-		setUserData,
-	};
+	const [userData, setUserData] = useState<UserDataInterface | null>(null);
 
 	return (
-		<UserContext.Provider value={userValue}>{children}</UserContext.Provider>
+		<UserContext.Provider value={{ userData, setUserData }}>
+			{children}
+		</UserContext.Provider>
 	);
 }
