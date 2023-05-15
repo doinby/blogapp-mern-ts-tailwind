@@ -49,6 +49,7 @@ export default function Create() {
 		const res = await fetch('http://localhost:4000/create', {
 			method: 'POST',
 			body: data,
+			credentials: 'include',
 		});
 
 		setMessage(res.statusText);
@@ -95,8 +96,7 @@ export default function Create() {
 					formats={formats}
 					value={content}
 					onChange={setContent}></ReactQuill>
-				<p className={`${msgColor} ${hasMsg} text-center`}>{message}</p>
-				{/* <p>{message}</p> */}
+				{/* <p className={`${msgColor} ${hasMsg} text-center`}>{message}</p> */}
 				<button
 					className='bg-indigo-500 text-white rounded-xl px-4 py-2'
 					type='submit'>

@@ -1,10 +1,22 @@
 import dateFn from 'date-fn';
 interface PostProps {
-	postData: object;
+	postData: {
+		title: string;
+		desc: string;
+		coverImg: string;
+		createdAt: Date;
+		author: { username: string };
+	};
 }
 
 export default function PostSummary({ postData }: PostProps) {
-	const { title, author, desc, coverImg, createdAt } = postData || {};
+	const {
+		title,
+		desc,
+		coverImg,
+		createdAt,
+		author: { username },
+	} = postData;
 	const newCreatedAt = new Date(createdAt);
 	const formattedCreatedAt = dateFn.date(newCreatedAt, 165).split(' ')[0];
 
@@ -14,7 +26,7 @@ export default function PostSummary({ postData }: PostProps) {
 			<div className='flex flex-col gap-6'>
 				<h3>{title}</h3>
 				<p>
-					by {author} <span>{formattedCreatedAt}</span>
+					<b>{username}</b> <span>{formattedCreatedAt}</span>
 				</p>
 				<p>{desc}</p>
 			</div>
