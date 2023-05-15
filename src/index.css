@@ -23,8 +23,12 @@
 }
 
 @layer components {
+	* {
+		/* @apply outline outline-1 outline-pink-500; */
+	}
+
 	header,
 	footer {
-		@apply container mx-auto;
+		@apply container mx-auto py-6;
 	}
 }

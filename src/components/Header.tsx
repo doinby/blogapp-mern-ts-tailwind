@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
-
+import SiteNav from './SiteNav';
+import UserNav from './UserNav';
 interface UserDataInterface {
 	iat: number;
 	id: string;
@@ -54,38 +55,14 @@ export default function Header() {
 		};
 
 		getCredential();
-	}, []);
+	});
 
 	return (
-		<header className='flex justify-between items-center'>
-			<h1>My Blog</h1>
-			<ul className='flex gap-6'>
-				<li>
-					{isLoggedIn && userData ? (
-						<ul className='flex gap-6'>
-							<li>
-								<Link to='/profile'>
-									Welcome, {userData instanceof Object && userData.username}
-								</Link>
-							</li>
-							<li>
-								<Link to='/create'>Create Post</Link>
-							</li>
-						</ul>
-					) : (
-						<Link to='/login'>Login</Link>
-					)}
-				</li>
-				<li>
-					{isLoggedIn ? (
-						<Link to='/logout' onClick={logout}>
-							Logout
-						</Link>
-					) : (
-						<Link to='/register'>Register</Link>
-					)}
-				</li>
-			</ul>
+		<header className='pt-12'>
+			<div className='prose prose-a:no-underline prose-li:list-none max-w-none flex justify-between items-center'>
+				<SiteNav />
+				<UserNav isLoggedIn={isLoggedIn} logout={logout} />
+			</div>
 		</header>
 	);
 }
