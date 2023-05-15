@@ -43,7 +43,7 @@ app.use(cookieParser());
 
 app.get('/', async (req, res) => {
 	try {
-		const posts = await Post.find();
+		const posts = await Post.find().populate('author', ['username']);
 		res.status(200).json({ success: true, data: posts });
 	} catch (err) {
 		res.status(400).json(err.message);
@@ -73,13 +73,17 @@ app.post('/login', async (req, res) => {
 
 		if (!isMatched) res.status(400).json('Login Not Matched!');
 
-		jwt.sign({ username }, secretToken, (err: Error, accessToken: string) => {
-			if (err) throw err;
-			res
-				.cookie('token', accessToken)
-				.status(200)
-				.json({ success: true, data: username });
-		});
+		jwt.sign(
+			{ username, id: userInfo?._id },
+			secretToken,
+			(err: Error, accessToken: string) => {
+				if (err) throw err;
+				res
+					.cookie('token', accessToken)
+					.status(200)
+					.json({ success: true, data: userInfo });
+			}
+		);
 	} catch (err) {
 		res.status(400).json(err.message);
 	}
@@ -102,16 +106,27 @@ app.post('/logout', async (req, res) => {
 app.post('/create', uploadMiddleware.single('coverImg'), async (req, res) => {
 	const { title, desc, content } = req.body;
 	const coverImg = req.file?.path;
+	const { token: accessToken } = req.cookies;
 
 	try {
-		const postInfo = await Post.create({
-			title,
-			desc,
-			content,
-			coverImg,
-		});
-
-		res.json(postInfo);
+		if (accessToken) {
+			jwt.verify(
+				accessToken,
+				secretToken,
+				{},
+				async (err: Error, userInfo: object) => {
+					if (err) throw err;
+					const postInfo = await Post.create({
+						title,
+						desc,
+						content,
+						coverImg,
+						author: userInfo?.id,
+					});
+					res.status(200).json({ success: true, data: postInfo });
+				}
+			);
+		}
 	} catch (err) {
 		res.status(400).json(err.message);
 	}
