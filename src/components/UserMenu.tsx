@@ -39,7 +39,7 @@ export default function UserMenu({ logout }: LogoutInterface) {
 				show={!isHidden}
 				onMouseEnter={() => setHidden(false)}
 				onMouseLeave={() => setHidden(true)}>
-				<Popover.Panel className='absolute top-[2rem] z-10 flex flex-col shadow-md w-full'>
+				<Popover.Panel className='absolute top-[2rem] z-10 flex flex-col shadow-md w-full bg-white'>
 					<Link className='px-4 py-3 hover:bg-violet-500 hover:text-white' to=''>
 						My Profile
 					</Link>

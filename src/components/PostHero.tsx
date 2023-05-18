@@ -1,44 +1,38 @@
-import dateFn from 'date-fn';
+// import dateFn from 'date-fn';
+import { IPostProps } from '../configs/interfaces';
+import { AuthorLink, PrimaryBtn } from '../configs/stylingComponents';
 
-interface PostProps {
-	postData: {
-		title: string;
-		desc: string;
-		coverImg: string;
-		createdAt: Date;
-		author: { username: string };
-	};
-}
-
-export default function PostHero({ postData }: PostProps) {
+export default function PostHero({ postData }: IPostProps) {
 	const {
 		title,
 		desc,
 		coverImg,
-		createdAt,
-		author: { username },
+		author: { _id: id, firstName, lastName },
 	} = postData;
 
-	const newCreatedAt = new Date(createdAt);
-	const formattedCreatedAt = dateFn.date(newCreatedAt, 165).split(' ')[0];
+	const trimmedDesc =
+		desc.split(' ').length > 30
+			? desc.split(' ').slice(0, 30).join(' ') + '...'
+			: desc;
+
+	// const newCreatedAt = new Date(createdAt);
+	// const formattedCreatedAt = dateFn.date(newCreatedAt, 165).split(' ')[0];
 
 	return (
-		<article className='prose prose-p:m-0 col-span-2'>
+		<article className='prose prose-p:m-0 prose-headings:m-0 max-w-none col-span-2 flex flex-col gap-6'>
 			<img
 				src={coverImg}
 				alt={`${title}'s Cover`}
-				className='h-72 w-full object-cover'
+				className='h-72 object-cover m-0'
 			/>
-			<div className='w-full flex'>
-				<div>
-					<h3 className='grow'>{title}</h3>
-					<p>{username}</p>
+			<div className='w-full grid grid-cols-5 gap-6'>
+				<div className='col-span-2'>
+					<h3>{title}</h3>
+					<AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink>
 				</div>
-				<div className='grow'>
-					<p>{desc}</p>
-					<button className='uppercase bg-violet-500 text-white px-3 py-1'>
-						Read More
-					</button>
+				<div className='col-span-3 h-full flex flex-col gap-4'>
+					<p>{trimmedDesc}</p>
+					<PrimaryBtn className='self-start'>Read More</PrimaryBtn>
 				</div>
 			</div>
 		</article>
