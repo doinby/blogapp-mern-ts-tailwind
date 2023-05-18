@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import PostSummary from '../components/PostSummary';
+import PostHero from '../components/PostHero';
+import About from '../components/About';
 
 interface PostProps {
 	title: string;
@@ -32,11 +34,18 @@ export default function Home() {
 	}, []);
 	return (
 		<main>
-			<section className='container mx-auto'>
+			<section className='container mx-auto grid grid-cols-3'>
 				{posts instanceof Array &&
-					posts.map((post: PostProps) => {
-						return <PostSummary key={post.title} postData={post} />;
-					})}
+					posts.map((post: PostProps, idx: number) =>
+						idx === 0 ? (
+							<>
+								<PostHero key={post.title} postData={post} />
+								<About />
+							</>
+						) : (
+							<PostSummary key={post.title} postData={post} />
+						)
+					)}
 			</section>
 		</main>
 	);
