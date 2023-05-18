@@ -1,10 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { ObjectId, Schema, model } from 'mongoose';
 interface PostInterface {
 	title: string;
 	desc: string;
 	content: string;
 	coverImg: string;
-	author: object;
+	author: ObjectId;
 }
 
 const PostSchema = new Schema<PostInterface>(

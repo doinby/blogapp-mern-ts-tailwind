@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Register() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 	const [message, setMessage] = useState('placeholder');
 	const [msgColor, setMsgColor] = useState('');
 
@@ -15,7 +17,7 @@ export default function Register() {
 		e.preventDefault();
 		const res = await fetch('http://localhost:4000/register', {
 			method: 'POST',
-			body: JSON.stringify({ username, password }),
+			body: JSON.stringify({ username, password, firstName, lastName }),
 			headers: { 'Content-Type': 'application/json' },
 		});
 
@@ -31,6 +33,20 @@ export default function Register() {
 		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
 			<h2 className='text-indigo-500 text-2xl'>Register</h2>
 			<form onSubmit={register} className='grid gap-6'>
+				<input
+					type='firstName'
+					placeholder='First name'
+					value={firstName}
+					onChange={(e) => setFirstName(e.target.value)}
+					className='px-4 py-2 border border-indigo-500 rounded-xl'
+				/>
+				<input
+					type='lastName'
+					placeholder='Last name'
+					value={lastName}
+					onChange={(e) => setLastName(e.target.value)}
+					className='px-4 py-2 border border-indigo-500 rounded-xl'
+				/>
 				<input
 					type='text'
 					placeholder='username'

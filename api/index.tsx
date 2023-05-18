@@ -51,13 +51,18 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-	const { username, password: plainPass } = req.body;
+	const { username, password: plainPass, firstName, lastName } = req.body;
 
 	// Create hashed password to store in DB
 	const hashedPass = await bcrypt.hash(plainPass, saltRounds);
 
 	try {
-		const userInfo = await User.create({ username, password: hashedPass });
+		const userInfo = await User.create({
+			username,
+			password: hashedPass,
+			firstName,
+			lastName,
+		});
 		res.json(userInfo);
 	} catch (err) {
 		res.status(400).json(err.message);
@@ -114,14 +119,14 @@ app.post('/create', uploadMiddleware.single('coverImg'), async (req, res) => {
 				accessToken,
 				secretToken,
 				{},
-				async (err: Error, userInfo: object) => {
+				async (err: Error, userInfo: { id: string }) => {
 					if (err) throw err;
 					const postInfo = await Post.create({
 						title,
 						desc,
 						content,
 						coverImg,
-						author: userInfo?.id,
+						author: userInfo.id,
 					});
 					res.status(200).json({ success: true, data: postInfo });
 				}
