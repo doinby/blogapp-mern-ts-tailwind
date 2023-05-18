@@ -43,7 +43,12 @@ app.use(cookieParser());
 
 app.get('/', async (req, res) => {
 	try {
-		const posts = await Post.find().populate('author', ['username']);
+		const posts = await Post.find().populate('author', [
+			'_id',
+			'username',
+			'firstName',
+			'lastName',
+		]);
 		res.status(200).json({ success: true, data: posts });
 	} catch (err) {
 		res.status(400).json(err.message);
@@ -74,12 +79,14 @@ app.post('/login', async (req, res) => {
 
 	try {
 		const userInfo = await User.findOne({ username });
-		const isMatched = await bcrypt.compare(password, userInfo?.password);
+		const isMatched =
+			userInfo instanceof Object &&
+			(await bcrypt.compare(password, userInfo.password));
 
 		if (!isMatched) res.status(400).json('Login Not Matched!');
 
 		jwt.sign(
-			{ username, id: userInfo?._id },
+			{ username, id: userInfo instanceof Object && userInfo._id },
 			secretToken,
 			(err: Error, accessToken: string) => {
 				if (err) throw err;
