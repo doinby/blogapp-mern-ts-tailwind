@@ -2,14 +2,7 @@ import { useEffect, useState } from 'react';
 import PostSummary from '../components/PostSummary';
 import PostHero from '../components/PostHero';
 import About from '../components/About';
-
-interface PostProps {
-	title: string;
-	desc: string;
-	coverImg: string;
-	createdAt: Date;
-	author: { username: string };
-}
+import { IPost } from '../configs/interfaces';
 
 export default function Home() {
 	const [posts, setPosts] = useState<object | null>(null);
@@ -34,14 +27,14 @@ export default function Home() {
 	}, []);
 	return (
 		<main>
-			<section className='container mx-auto grid grid-cols-3'>
+			<section className='container mx-auto grid grid-cols-3 gap-12'>
 				{posts instanceof Array &&
-					posts.map((post: PostProps, idx: number) =>
+					posts.map((post: IPost, idx: number) =>
 						idx === 0 ? (
-							<>
-								<PostHero key={post.title} postData={post} />
+							<div key={post.title} className='col-span-3 grid grid-cols-3 gap-6'>
+								<PostHero postData={post} />
 								<About />
-							</>
+							</div>
 						) : (
 							<PostSummary key={post.title} postData={post} />
 						)
