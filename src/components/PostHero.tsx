@@ -3,12 +3,7 @@ import { IPostProps } from '../configs/interfaces';
 import { AuthorLink, PrimaryBtn } from '../configs/stylingComponents';
 
 export default function PostHero({ postData }: IPostProps) {
-	const {
-		title,
-		desc,
-		coverImg,
-		author: { _id: id, firstName, lastName },
-	} = postData;
+	const { title, desc, coverImg } = postData;
 
 	const trimmedDesc =
 		desc.split(' ').length > 30
@@ -28,7 +23,7 @@ export default function PostHero({ postData }: IPostProps) {
 			<div className='w-full grid grid-cols-5 gap-6'>
 				<div className='col-span-2'>
 					<h3>{title}</h3>
-					<AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink>
+					{/* <AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink> */}
 				</div>
 				<div className='col-span-3 h-full flex flex-col gap-4'>
 					<p>{trimmedDesc}</p>
