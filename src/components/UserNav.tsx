@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import UserMenu from './UserMenu';
+import UserMenuDropdown from './UserMenuDropdown';
 import { Edit3 } from 'react-feather';
 
 interface UserNavProps {
@@ -14,7 +14,7 @@ export default function UserNav({ isLoggedIn, logout }: UserNavProps) {
 				{isLoggedIn ? (
 					<>
 						<li>
-							<UserMenu logout={logout} />
+							<UserMenuDropdown logout={logout} />
 						</li>
 						<li>
 							<Link to='/create' className='flex items-center gap-1'>

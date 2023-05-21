@@ -1,8 +1,9 @@
+import { Send } from 'react-feather';
 import { PrimaryBtn } from '../configs/stylingComponents';
 
 export default function About() {
 	return (
-		<article className='prose prose-p:m-0 flex flex-col place-content-center bg-violet-200 p-10'>
+		<article className='prose prose-p:m-0 prose-headings:text-white flex flex-col place-content-center bg-violet-500 p-10'>
 			<h1 className='m-0'>Discover topics on:</h1>
 			<h3 className='text-center'>📟 Technology</h3>
 			<h3 className='text-center'>🎨 Design</h3>
@@ -14,14 +15,18 @@ export default function About() {
 				<h3 className='text-left'>
 					Wanna stay in the loop? Sign up for our newsletter! 👇
 				</h3>
-				<input
-					type='email'
-					placeholder='email@example.com'
-					// value={username}
-					// onChange={(e) => setUsername(e.target.value)}
-					className='px-3 py-1'
-				/>
-				<PrimaryBtn>Submit</PrimaryBtn>
+				<div className='flex'>
+					<input
+						type='email'
+						placeholder='email@example.com'
+						// value={username}
+						// onChange={(e) => setUsername(e.target.value)}
+						className='py-1 bg-transparent border-b-2 border-b-white grow'
+					/>
+					<PrimaryBtn className='flex items-center justify-center'>
+						<Send className='p-0 m-0' />
+					</PrimaryBtn>
+				</div>
 			</div>
 		</article>
 	);

@@ -18,7 +18,7 @@ interface LogoutInterface {
 	logout: () => void;
 }
 
-export default function UserMenu({ logout }: LogoutInterface) {
+export default function UserMenuDropdown({ logout }: LogoutInterface) {
 	const { userData, setUserData }: UserContextInterface =
 		useContext(UserContext);
 
@@ -40,11 +40,11 @@ export default function UserMenu({ logout }: LogoutInterface) {
 				onMouseEnter={() => setHidden(false)}
 				onMouseLeave={() => setHidden(true)}>
 				<Popover.Panel className='absolute top-[2rem] z-10 flex flex-col shadow-md w-full bg-white'>
-					<Link className='px-4 py-3 hover:bg-violet-500 hover:text-white' to=''>
+					<Link className='px-4 py-3 hover:bg-violet-200' to=''>
 						My Profile
 					</Link>
 					<button
-						className='px-4 py-3 hover:bg-violet-500 hover:text-white text-left'
+						className='px-4 py-3 hover:bg-violet-200 text-left'
 						onClick={logout}>
 						Logout
 					</button>

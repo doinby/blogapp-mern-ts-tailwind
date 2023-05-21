@@ -55,10 +55,10 @@ export default function Header() {
 		};
 
 		getCredential();
-	});
+	}, []);
 
 	return (
-		<header className='pt-12'>
+		<header className='container mx-auto pt-12'>
 			<div className='prose prose-a:no-underline prose-li:list-none max-w-none flex justify-between items-center'>
 				<SiteNav />
 				<UserNav isLoggedIn={isLoggedIn} logout={logout} />

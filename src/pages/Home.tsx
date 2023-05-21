@@ -26,7 +26,7 @@ export default function Home() {
 		getPosts();
 	}, []);
 	return (
-		<main>
+		<main className='py-12'>
 			<section className='container mx-auto grid grid-cols-3 gap-12'>
 				{posts instanceof Array &&
 					posts.map((post: IPost, idx: number) =>
