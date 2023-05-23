@@ -40,13 +40,13 @@ export default function Home() {
 
 	return (
 		<Main>
-			<section className='container mx-auto grid grid-cols-3 gap-12'>
+			<section className='container mx-auto grid grid-flow-row gap-8 md:grid-cols-3 md:gap-12'>
 				{posts instanceof Array &&
 					posts.map((post: IPost, idx: number) =>
 						idx === 0 ? (
 							<div
 								key={post.title}
-								className='col-span-3 grid grid-cols-3 gap-6 mb-10'>
+								className='grid md:col-span-3 md:grid-cols-3 gap-6 md:mb-10'>
 								<PostHero postData={post} />
 								<About />
 							</div>

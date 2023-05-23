@@ -16,7 +16,7 @@ export const AuthorLink = ({ className, children, id }: IAuthorLink) => (
 );
 
 export const Main = ({ className, children }: IDefault) => (
-	<main className={`${className} grow shrink-0 basis-auto py-12`}>
+	<main className={`${className} grow shrink-0 basis-auto py-8 md:py-12`}>
 		{children}
 	</main>
 );
