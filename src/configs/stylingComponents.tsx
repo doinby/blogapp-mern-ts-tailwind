@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { IDefault, IAuthorLink, IInput } from './interfaces';
+import { IDefault, IAuthorLink, IInput, ISocialLink } from './interfaces';
 
 export const PrimaryBtn = ({ className, children }: IDefault) => (
 	<button
@@ -35,4 +35,10 @@ export const Input = ({
 		placeholder={placeholder}
 		onChange={onChange}
 	/>
+);
+
+export const SocialLinks = ({ url, children, className }: ISocialLink) => (
+	<Link to={url} className={`${className} flex items-center gap-1.5 text-sm`}>
+		{children}
+	</Link>
 );

@@ -7,6 +7,10 @@ export interface IAuthorLink extends IDefault {
 	id: string;
 }
 
+export interface ISocialLink extends IDefault {
+	url: string;
+}
+
 export interface KonvaTextEventTarget extends EventTarget {
 	index: number;
 	value: string;
