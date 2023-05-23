@@ -4,9 +4,12 @@ import PostHero from '../components/PostHero';
 import About from '../components/About';
 import { IPost } from '../configs/interfaces';
 import { Main } from '../configs/stylingComponents';
+import spinner from '/spinner.svg';
 
 export default function Home() {
 	const [posts, setPosts] = useState<object | null>(null);
+	const isLoading = posts === null;
+	console.log('isLoading:', isLoading);
 	// const [message, setMessage] = useState('placeholder');
 	// const [msgColor, setMsgColor] = useState('');
 
@@ -26,6 +29,15 @@ export default function Home() {
 
 		getPosts();
 	}, []);
+
+	if (isLoading) {
+		return (
+			<Main className='container mx-auto prose flex flex-col place-items-center place-content-center text-center'>
+				<img src={spinner} alt='Loading...' />
+			</Main>
+		);
+	}
+
 	return (
 		<Main>
 			<section className='container mx-auto grid grid-cols-3 gap-12'>
