@@ -55,6 +55,22 @@ app.get('/', async (req, res) => {
 	}
 });
 
+app.get('/post/:id', async (req, res) => {
+	try {
+		const postId = req.params.id;
+		const post = await Post.findById(postId).populate('author', [
+			'_id',
+			'username',
+			'firstName',
+			'lastName',
+		]);
+
+		res.status(200).json(post);
+	} catch (err) {
+		res.status(400).json(err.message);
+	}
+});
+
 app.post('/register', async (req, res) => {
 	const { username, password: plainPass, firstName, lastName } = req.body;
 
