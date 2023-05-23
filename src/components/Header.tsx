@@ -44,7 +44,6 @@ export default function Header() {
 					method: 'POST',
 					credentials: 'include',
 				});
-
 				const json = await res.json();
 
 				setIsLoggedIn(true);
@@ -58,11 +57,11 @@ export default function Header() {
 	}, []);
 
 	return (
-		<header className='container mx-auto pt-12'>
-			<div className='prose prose-a:no-underline prose-li:list-none max-w-none flex justify-between items-center'>
-				<SiteNav />
-				<UserNav isLoggedIn={isLoggedIn} logout={logout} />
-			</div>
+		<header className='container mx-auto pt-12 flex justify-between items-center'>
+			{/* <div className='prose prose-a:no-underline prose-li:list-none max-w-none flex justify-between items-center'> */}
+			<SiteNav />
+			<UserNav isLoggedIn={isLoggedIn} logout={logout} />
+			{/* </div> */}
 		</header>
 	);
 }

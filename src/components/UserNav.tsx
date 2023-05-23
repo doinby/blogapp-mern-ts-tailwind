@@ -9,7 +9,7 @@ interface UserNavProps {
 
 export default function UserNav({ isLoggedIn, logout }: UserNavProps) {
 	return (
-		<nav className='flex items-center gap-6'>
+		<nav className='prose prose-a:no-underline prose-li:list-none max-w-none flex items-center gap-6'>
 			<ul className='prose-a:font-normal prose-li:p-0 prose-li:m-0 flex gap-6 p-0 m-0'>
 				{isLoggedIn ? (
 					<>
