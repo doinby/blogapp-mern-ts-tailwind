@@ -23,9 +23,9 @@ export default function SiteNav() {
 					<Link to=''>Subscribe</Link>
 				</li>
 			</ul> */}
-			<div className='prose-li:p-0 prose-li:m-0 flex gap-6 pl-7 py-0 m-0 border-l-2 border-violet-500'>
+			{/* <div className='prose-li:p-0 prose-li:m-0 flex gap-6 pl-7 py-0 m-0 border-l-2 border-violet-500'>
 				<Input placeholder='Search post...' />
-			</div>
+			</div> */}
 		</nav>
 	);
 }
