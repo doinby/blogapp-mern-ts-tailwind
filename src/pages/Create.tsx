@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
+import { Main } from '../configs/stylingComponents';
 
 const modules = {
 	toolbar: [
@@ -61,8 +62,8 @@ export default function Create() {
 	}
 
 	return (
-		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
-			<h2 className='text-indigo-500 text-2xl'>Create Post</h2>
+		<Main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
+			<h2 className='text-violet-500 text-2xl'>Create Post</h2>
 			<form
 				className='flex flex-col gap-6'
 				onSubmit={handleSubmit}
@@ -98,11 +99,11 @@ export default function Create() {
 					onChange={setContent}></ReactQuill>
 				{/* <p className={`${msgColor} ${hasMsg} text-center`}>{message}</p> */}
 				<button
-					className='bg-indigo-500 text-white rounded-xl px-4 py-2'
+					className='bg-violet-500 text-white rounded-xl px-4 py-2'
 					type='submit'>
 					Submit
 				</button>
 			</form>
-		</main>
+		</Main>
 	);
 }

@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
+import { Input, Main, PrimaryBtn } from '../configs/stylingComponents';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -36,28 +37,24 @@ export default function Login() {
 	}
 
 	return (
-		<main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
-			<h2 className='text-indigo-500 text-2xl'>Login</h2>
+		<Main className='container mx-auto flex flex-col gap-10 place-items-center place-content-center'>
+			<h2 className='text-violet-500 text-2xl'>Login</h2>
 			<form onSubmit={login} className='grid gap-6'>
-				<input
+				<Input
 					type='text'
-					placeholder='username'
+					placeholder='Username'
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
-					className='px-4 py-2 border border-indigo-500 rounded-xl'
 				/>
-				<input
+				<Input
 					type='password'
-					placeholder='password'
+					placeholder='Password'
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
-					className='px-4 py-2 border border-indigo-500 rounded-xl'
 				/>
-				<button className='bg-indigo-500 text-white rounded-xl px-4 py-2'>
-					Submit
-				</button>
+				<PrimaryBtn className='place-self-center'>Submit</PrimaryBtn>
 				<p className={`${msgColor} ${hasMsg} text-center`}>{message}</p>
 			</form>
-		</main>
+		</Main>
 	);
 }

@@ -3,6 +3,7 @@ import PostSummary from '../components/PostSummary';
 import PostHero from '../components/PostHero';
 import About from '../components/About';
 import { IPost } from '../configs/interfaces';
+import { Main } from '../configs/stylingComponents';
 
 export default function Home() {
 	const [posts, setPosts] = useState<object | null>(null);
@@ -26,12 +27,14 @@ export default function Home() {
 		getPosts();
 	}, []);
 	return (
-		<main className='py-12'>
+		<Main>
 			<section className='container mx-auto grid grid-cols-3 gap-12'>
 				{posts instanceof Array &&
 					posts.map((post: IPost, idx: number) =>
 						idx === 0 ? (
-							<div key={post.title} className='col-span-3 grid grid-cols-3 gap-6'>
+							<div
+								key={post.title}
+								className='col-span-3 grid grid-cols-3 gap-6 mb-10'>
 								<PostHero postData={post} />
 								<About />
 							</div>
@@ -40,6 +43,6 @@ export default function Home() {
 						)
 					)}
 			</section>
-		</main>
+		</Main>
 	);
 }
