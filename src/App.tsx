@@ -4,8 +4,9 @@ import IndexLayout from './pages/IndexLayout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { UserContextProvider } from './UserContext';
 import Create from './pages/Create';
+import Post from './components/Post';
+import { UserContextProvider } from './UserContext';
 
 export default function App() {
 	return (
@@ -24,6 +25,9 @@ export default function App() {
 					<Route path='/logout' element={<Navigate to='/' />} />
 					<Route path='/register' element={<IndexLayout />}>
 						<Route index element={<Register />} />
+					</Route>
+					<Route path='/post/:postId' element={<IndexLayout />}>
+						<Route index element={<Post />} />
 					</Route>
 				</Routes>
 			</UserContextProvider>
