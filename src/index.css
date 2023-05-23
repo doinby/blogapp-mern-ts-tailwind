@@ -13,9 +13,9 @@
 		@apply flex flex-col;
 	}
 
-	main {
+	/* main {
 		@apply grow shrink-0 basis-auto;
-	}
+	} */
 
 	footer {
 		@apply shrink-0;

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { IBtn, IAuthorLink } from './interfaces';
+import { IDefault, IAuthorLink, IInput } from './interfaces';
 
-export const PrimaryBtn = ({ className, children }: IBtn) => (
+export const PrimaryBtn = ({ className, children }: IDefault) => (
 	<button
 		className={`${className} uppercase bg-violet-500 text-white px-3 py-1`}>
 		{children}
@@ -13,4 +13,26 @@ export const AuthorLink = ({ className, children, id }: IAuthorLink) => (
 	<Link to={`/${id}`} className={`${className} underline-offset-1`}>
 		{children}
 	</Link>
+);
+
+export const Main = ({ className, children }: IDefault) => (
+	<main className={`${className} grow shrink-0 basis-auto py-12`}>
+		{children}
+	</main>
+);
+
+export const Input = ({
+	className,
+	type,
+	placeholder,
+	value,
+	onChange,
+}: IInput) => (
+	<input
+		type={type}
+		className={`${className} border-b-2 border-slate-300 focus:border-violet-500 focus:outline-offset-4 hover:border-violet-500`}
+		value={value}
+		placeholder={placeholder}
+		onChange={onChange}
+	/>
 );
