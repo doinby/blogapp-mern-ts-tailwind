@@ -3,21 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import SiteNav from './SiteNav';
 import UserNav from './UserNav';
-interface UserDataInterface {
-	iat: number;
-	id: string;
-	username: string;
-}
-
-interface UserContextInterface {
-	userData?: UserDataInterface | null;
-	setUserData: (data: UserDataInterface | null) => void;
-}
 
 export default function Header() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const { userData, setUserData }: UserContextInterface =
-		useContext(UserContext);
+	const { userData, setUserData } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -58,10 +47,8 @@ export default function Header() {
 
 	return (
 		<header className='container mx-auto pt-12 flex justify-between items-center'>
-			{/* <div className='prose prose-a:no-underline prose-li:list-none max-w-none flex justify-between items-center'> */}
 			<SiteNav />
 			<UserNav isLoggedIn={isLoggedIn} logout={logout} />
-			{/* </div> */}
 		</header>
 	);
 }

@@ -40,6 +40,7 @@ export interface IPost {
 }
 
 export interface IUser {
+	iat: number;
 	_id: string;
 	username: string;
 	firstName: string;
