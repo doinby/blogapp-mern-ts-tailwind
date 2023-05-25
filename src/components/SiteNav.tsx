@@ -6,7 +6,7 @@ export default function SiteNav() {
 		<nav className='prose prose-a:no-underline prose-li:list-none max-w-none flex items-center gap-6'>
 			<Link to='/'>
 				<h1 className='m-0'>
-					<span className='text-violet-500'>Do</span>inby.
+					<span className='text-violet-500'>News</span>2You.
 				</h1>
 			</Link>
 			{/* <ul className='prose-li:p-0 prose-li:m-0 flex gap-6 pl-6 py-0 m-0 border-l-2 border-violet-500'>

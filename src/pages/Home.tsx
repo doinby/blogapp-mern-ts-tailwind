@@ -9,11 +9,6 @@ import spinner from '/spinner.svg';
 export default function Home() {
 	const [posts, setPosts] = useState<object | null>(null);
 	const isLoading = posts === null;
-	console.log('isLoading:', isLoading);
-	// const [message, setMessage] = useState('placeholder');
-	// const [msgColor, setMsgColor] = useState('');
-
-	// const hasMsg = message !== 'placeholder' ? 'visible' : 'invisible';
 
 	useEffect(() => {
 		async function getPosts() {

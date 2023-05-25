@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import SiteNav from './SiteNav';
 import UserNav from './UserNav';
+import { IUserContext } from '../configs/interfaces';
 
 export default function Header() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const { userData, setUserData } = useContext(UserContext);
+	const { userData, setUserData }: IUserContext = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export default function Header() {
 
 		if (data.ok) {
 			setIsLoggedIn(false);
-			setUserData(null);
+			setUserData(undefined);
 		}
 
 		// Refresh page after logout

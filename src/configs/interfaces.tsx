@@ -47,6 +47,11 @@ export interface IUser {
 	lastName: string;
 }
 
+export interface IUserContext {
+	userData: IUser | undefined;
+	setUserData: (data: IUser | undefined) => void;
+}
+
 export interface IPostProps {
 	postData: IPost;
 }

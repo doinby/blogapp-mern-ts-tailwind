@@ -10,11 +10,14 @@ export const PrimaryBtn = ({ className, children }: IDefault) => (
 );
 
 export const AuthorLink = ({ className, children, id }: IAuthorLink) => (
-	<Link
-		to={`/${id}`}
-		className={`${className} underline-offset-2 text-violet-500`}>
-		{children}
-	</Link>
+	<div>
+		<span className='text-slate-500'>by </span>
+		<Link
+			to={`/${id}`}
+			className={`${className} underline-offset-2 text-violet-500`}>
+			{children}
+		</Link>
+	</div>
 );
 
 export const Main = ({ className, children }: IDefault) => (
