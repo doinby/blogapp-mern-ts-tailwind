@@ -3,10 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 // import HtmlToReact from 'html-to-react';
 import dateFn from 'date-fn';
 import { Parser } from 'html-to-react';
-import { IPost, IUser } from '../configs/interfaces';
+import { IPost, IUser, IUserContext } from '../configs/interfaces';
 import { AuthorLink, Main } from '../configs/stylingComponents';
-import { ArrowLeft } from 'react-feather';
+import { ArrowLeft, Edit2, Edit3, User } from 'react-feather';
 import spinner from '/spinner.svg';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 export default function Post() {
 	const { postId } = useParams();
@@ -15,14 +17,18 @@ export default function Post() {
 	const { data: postData, error } = useFetch(url);
 	const isLoading = postData === undefined;
 
-	const { title, coverImg, content, author, createdAt }: IPost =
+	const { _id, title, coverImg, content, author, createdAt }: IPost =
 		postData instanceof Object && postData;
 
 	const {
-		_id: id,
+		_id: authorId,
 		firstName,
 		lastName,
 	}: IUser = author instanceof Object && author;
+
+	const { userData }: IUserContext = useContext(UserContext);
+	const { id: userId } = userData instanceof Object && userData;
+	const isEditable = userId !== undefined && userId === authorId;
 
 	const newCreatedAt = new Date(createdAt);
 	const formattedCreatedAt = dateFn.date(newCreatedAt, 165).split(' ')[0];
@@ -62,8 +68,18 @@ export default function Post() {
 				<div>
 					<h2>{title}</h2>
 					<div className='flex flex-wrap justify-between items-baseline'>
-						<AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink>
-						<p className='text-slate-500'>{formattedCreatedAt}</p>
+						<div className='flex flex-wrap items-baseline gap-2'>
+							<AuthorLink id={authorId}>{`${firstName} ${lastName}`}</AuthorLink>
+							<p className='text-slate-500'>on {formattedCreatedAt}</p>
+						</div>
+						<Link
+							to='/'
+							className={`${
+								isEditable ? 'flex' : 'hidden'
+							} no-underline text-slate-500 gap-2 text-base`}>
+							<Edit3 size='20' />
+							Edit
+						</Link>
 					</div>
 					{htmlParser.parse(content)}
 				</div>
