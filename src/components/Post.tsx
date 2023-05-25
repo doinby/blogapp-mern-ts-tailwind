@@ -1,8 +1,9 @@
 import { useFetch } from 'usehooks-ts';
-import { IPost, IUser } from '../configs/interfaces';
 import { Link, useParams } from 'react-router-dom';
 // import HtmlToReact from 'html-to-react';
+import dateFn from 'date-fn';
 import { Parser } from 'html-to-react';
+import { IPost, IUser } from '../configs/interfaces';
 import { AuthorLink, Main } from '../configs/stylingComponents';
 import { ArrowLeft } from 'react-feather';
 import spinner from '/spinner.svg';
@@ -14,7 +15,7 @@ export default function Post() {
 	const { data: postData, error } = useFetch(url);
 	const isLoading = postData === undefined;
 
-	const { title, coverImg, content, author }: IPost =
+	const { title, coverImg, content, author, createdAt }: IPost =
 		postData instanceof Object && postData;
 
 	const {
@@ -22,6 +23,9 @@ export default function Post() {
 		firstName,
 		lastName,
 	}: IUser = author instanceof Object && author;
+
+	const newCreatedAt = new Date(createdAt);
+	const formattedCreatedAt = dateFn.date(newCreatedAt, 165).split(' ')[0];
 
 	const htmlParser = new Parser();
 
@@ -52,12 +56,15 @@ export default function Post() {
 			<img
 				src={`/${coverImg}`}
 				alt={`${title}'s cover image`}
-				className='h-[300px] object-contain'
+				className='h-[400px] object-cover'
 			/>
 			<div className='container mx-auto prose'>
 				<div>
 					<h2>{title}</h2>
-					<AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink>
+					<div className='flex flex-wrap justify-between items-baseline'>
+						<AuthorLink id={id}>{`${firstName} ${lastName}`}</AuthorLink>
+						<p className='text-slate-500'>{formattedCreatedAt}</p>
+					</div>
 					{htmlParser.parse(content)}
 				</div>
 			</div>

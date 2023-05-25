@@ -10,7 +10,9 @@ export const PrimaryBtn = ({ className, children }: IDefault) => (
 );
 
 export const AuthorLink = ({ className, children, id }: IAuthorLink) => (
-	<Link to={`/${id}`} className={`${className} underline-offset-1`}>
+	<Link
+		to={`/${id}`}
+		className={`${className} underline-offset-2 text-violet-500`}>
 		{children}
 	</Link>
 );
